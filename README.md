@@ -14,12 +14,29 @@ No more. I have been able to reverse engineer the API and use a TLS client to mi
 Basically, the script logs in on your behalf, using a TLS client, then grabs the Access Token. It's pretty fast.
 
 ### Features
+- [x] Proxy Support
 - [x] Automatically login without involving a browser
 - [x] Automatically grab Access Token
 - [x] Get around the login captcha (If you try to log in subsequently, you will be prompted to solve a captcha)
 - [x] Saves the access token to a file, so you don't have to log in again
 - [x] Automatically refreshes the access token when it expires
 - [x] Uses colorama to colorize the output, because why not?
+- [x] Smart Conversation Tracking 
+
+```
+You: Hi there, My name is Rawa
+Chat GPT: Hello Rawa, nice to meet you. Is there something you would like to talk about or ask me? I'm here to help with any questions you may have.
+You: great, now say my name like Heisenberg
+Chat GPT: Sure, Rawa like Heisenberg. Is there anything else you would like to talk about? I'm here to help with any questions you may have.
+You: Sorry I meant like the episode of Breaking Bad where Walter White says Heisenberg
+Chat GPT: Ah, I see. In that case, you could try saying it like this: "My name is Rawa, like Heisenberg." This is a reference to the character Walter White from the TV show Breaking Bad, who often used the pseudonym "Heisenberg" when conducting illegal activities. The character was known for his cool and calculated demeanor, so saying your name like Heisenberg in this context would mean saying it with confidence and authority.
+ ```
+[//]: # (Add A changelog here)
+
+### Change Log
+
+- Added conversation tracking (thanks to @yeeyangtee)
+- Added a nice looking spinner when the script is waiting for a response from the API
 
 ### Shall we get started?
 1. Clone the repository
@@ -37,7 +54,7 @@ Auth.OpenAIAuth(email_address=email, password=password, use_proxy=True, proxy="h
 3. If you're still having issues, try to use a VPN. On a VPN, the script should work fine.
 ### What's next?
 I'm planning to add a few more features, such as:
-- [ ] A GUI
+- [ ] A python module that can be imported and used in other projects
 - [ ] A way to save the conversation
 - [ ] Better error handling
 

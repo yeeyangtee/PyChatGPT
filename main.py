@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 # Builtins
 import json
@@ -8,6 +9,7 @@ import time
 # Local
 from Classes import auth as Auth
 from Classes import chat as Chat
+from Classes import spinner as Spinner
 
 # Fancy stuff
 import colorama
@@ -34,7 +36,8 @@ with open("config.json", "r") as f:
     email = config["email"]
     password = config["password"]
 
-if __name__ == "__main__":
+
+def start_chat():
     expired_creds = Auth.expired_creds()
     print(f"{Fore.GREEN}>> Checking if credentials are expired...")
     if expired_creds:
@@ -64,10 +67,15 @@ if __name__ == "__main__":
                 exit(1)
 
             user_input = input("You: ")
-            answer, previous_convo, conversation = Chat.ask(auth_token=access_token,
-                                              prompt=user_input,
-                                              conversation_id=conversation_id,
-                                              previous_convo_id=previous_convo_id)
+
+            spinner = Spinner.Spinner()
+            spinner.start(Fore.YELLOW + "Chat GPT is typing...")
+
+            answer, previous_convo, convo_id = Chat.ask(auth_token=access_token,
+                                                        prompt=user_input,
+                                                        conversation_id=conversation_id,
+                                                        previous_convo_id=previous_convo_id)
+
             if answer == "400" or answer == "401":
                 print(f"{Fore.RED}>> Your token is invalid. Attempting to refresh..")
                 open_ai_auth = Auth.OpenAIAuth(email_address=email, password=password)
@@ -77,17 +85,14 @@ if __name__ == "__main__":
             else:
                 if previous_convo is not None:
                     previous_convo_id = previous_convo
-                if conversation is not None:
-                    conversation_id = conversation
-
+                if convo_id is not None:
+                    conversation_id = convo_id
+                spinner.stop()
                 print(f"Chat GPT: {answer}")
         except KeyboardInterrupt:
             print(f"{Fore.RED}>> Exiting...")
             exit(1)
 
 
-
-
-
-
-
+if __name__ == "__main__":
+    start_chat()

@@ -8,7 +8,14 @@ from typing import Tuple
 import requests
 
 
-def ask(auth_token: str, prompt, conversation_id:str or None, previous_convo_id: str or None) -> Tuple[str, str or None]:
+def ask(
+        auth_token: str,
+        prompt: str,
+        conversation_id:
+        str or None,
+        previous_convo_id: str or None
+) -> Tuple[str, str or None, str or None]:
+
     headers = {
         'Content-Type': 'application/json',
         'Authorization': f'Bearer {auth_token}',
@@ -54,5 +61,3 @@ def ask(auth_token: str, prompt, conversation_id:str or None, previous_convo_id:
     except Exception as e:
         print(">> Error when calling OpenAI API: " + str(e))
         return "400", None, None
-
-

@@ -1,0 +1,7 @@
+__pycache__
+*.json
+
+data
+output
+output_bak
+_*

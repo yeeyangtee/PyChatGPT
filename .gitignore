@@ -1,1 +1,8 @@
+__pycache__
+.gitignore
 *.json
+
+data
+output
+output_bak
+_sq1.py
